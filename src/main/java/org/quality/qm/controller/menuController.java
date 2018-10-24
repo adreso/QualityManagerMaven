@@ -68,7 +68,6 @@ public class menuController {
         List<Menus> g=this.getmenus();
         model = new DefaultMenuModel();
         for(int i=0;i<g.size();i++){
-            //System.out.println(g.get(i).isTipo() && g.get(i).getNivel()==1);
             if(g.get(i).isTipo() && g.get(i).getNivel()==1){
                 DefaultSubMenu sNivel1=new DefaultSubMenu(g.get(i).getNombre());
                 sNivel1.setIcon(g.get(i).getIcono());
@@ -81,6 +80,8 @@ public class menuController {
                             if(g.get(k).getNivel()==3 && g.get(k).getMainmenu()==g.get(j).getIdmenu()){
                                 DefaultMenuItem itemLevel3=new DefaultMenuItem(g.get(k).getNombre());
                                 itemLevel3.setIcon(g.get(k).getIcono());
+                                itemLevel3.setUrl("newTemplateClient.xhtml");
+                                //itemLevel3.setUrl("/faces/view/Usuarios/UsuariosTemplateCliente.xhtml");
                                 sNivel2.addElement(itemLevel3);
                             }
                         }
