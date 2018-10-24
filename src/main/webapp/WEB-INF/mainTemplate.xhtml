@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" name="viewport"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="css/colorStyle.css"/>
+        <h:outputStylesheet name="css/components.css"/>
+        <h:outputStylesheet name="css/ocultar.css"/>
+        <title>Quality Manager</title>
+    </h:head>
+    <h:body>
+        <div id="app">
+            <div class="main-wrapper">
+                <div class="navbar-bg"></div>
+                <nav class="navbar navbar-expand-lg main-navbar">                   
+                    <ui:insert name="top">
+                        <h:form>
+                            <p:growl id="messages"/>
+                            <p:menubar model="#{menuController.model}">
+                            
+                                <f:facet name="options">
+                                    <p:inputText style="margin-right:10px" placeholder="Buscar"/>
+                                    <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" />
+                                </f:facet>
+                            </p:menubar>
+                        </h:form>
+                    </ui:insert>
+                </nav>
+                <div class="main-sidebar">
+                    <aside id="sidebar-wrapper">
+                        <h:graphicImage library="images" name="imagen.png" />
+                        <ui:insert name="left">
+                            <h:form>
+                                <p:growl id="messages" showDetail="false"/>
+
+                                <p:menu toggleable="true">
+                                    <p:submenu label="Ajax">
+                                        <p:menuitem value="Save" update="messages" icon="ui-icon-disk" />
+                                        <p:menuitem value="Update"  update="messages" icon="ui-icon-arrowrefresh-1-w"/>
+                                    </p:submenu>
+                                    <p:submenu label="Non-Ajax">
+                                        <p:menuitem value="Delete"  update="messages" ajax="false" icon="ui-icon-close"/>
+                                    </p:submenu>
+                                    <p:submenu label="Navigations">
+                                        <p:menuitem value="External" url="#" icon="ui-icon-home"/>
+                                        <p:menuitem value="Internal" icon="ui-icon-star"/>
+                                    </p:submenu>
+                                </p:menu>
+                            </h:form>
+                        </ui:insert>
+                    </aside>
+                </div>
+                <div class="main-content">
+                    <section class="section">
+                        <h1 class="section-header">
+                            <div>TITTLE</div>
+                        </h1>
+                        <div class="section-body">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Ion Icons</h4>
+                                </div>
+                                <div class="card-body">
+                                    <ui:insert name="content">Content</ui:insert>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <footer class="main-footer">
+                    <div class="footer-left">
+                        <ui:insert name="bottom">Bottom</ui:insert>
+                    </div>
+                    <div class="footer-right"></div>
+                </footer>
+                <h:outputScript library="js" name="jquery.min.js" />
+                <h:outputScript library="js" name="bootstrap.min.js" />
+                <h:outputScript library="js" name="nicescroll.min.js" />
+                <h:outputScript library="js" name="scripts.js" />                
+                <h:outputScript library="js" name="ocultar.js" />                
+            </div>
+        </div>
+    </h:body>
+</html>
