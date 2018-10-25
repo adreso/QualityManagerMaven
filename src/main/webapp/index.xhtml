@@ -10,10 +10,20 @@
     </h:head>
     <h:body>
 
-        <ui:composition template="WEB-INF/mainTemplate.xhtml">
+        <ui:composition template="./WEB-INF/mainTemplate.xhtml">
             <ui:define name="titulo">DASHBOARD</ui:define>
+
+            <ui:define name="subtitulo">
+                <h:form >
+                    <p:menubar>
+                        <p:menuitem value="Project" url="#" />
+                    </p:menubar>
+                </h:form>
+            </ui:define>
+
             <ui:define name="content">
                 <h:form id="usuario">
+                    
                     <p:panelGrid columns="2">
                         <h:outputText value="Username"/>
                         <p:inputText value="#{usuariosController.usuario.username}" required="true"/>
