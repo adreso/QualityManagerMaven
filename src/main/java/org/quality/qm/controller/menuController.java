@@ -80,14 +80,17 @@ public class menuController {
                             if(g.get(k).getNivel()==3 && g.get(k).getMainmenu()==g.get(j).getIdmenu()){
                                 DefaultMenuItem itemLevel3=new DefaultMenuItem(g.get(k).getNombre());
                                 itemLevel3.setIcon(g.get(k).getIcono());
-                                itemLevel3.setUrl("newTemplateClient.xhtml");
+                                
                                 //itemLevel3.setUrl("/faces/view/Usuarios/UsuariosTemplateCliente.xhtml");
+                                itemLevel3.setOutcome(g.get(k).getUrl());
                                 sNivel2.addElement(itemLevel3);
                             }
                         }
                     }else if(!g.get(j).isTipo() && g.get(j).getNivel()==2 && g.get(j).getMainmenu()==g.get(i).getIdmenu()){
                         DefaultMenuItem itemLevel2=new DefaultMenuItem(g.get(j).getNombre());
-                        itemLevel2.setIcon(g.get(j).getIcono());
+                        itemLevel2.setIcon(g.get(j).getIcono());                               
+                        itemLevel2.setOutcome(g.get(j).getUrl());
+
                         sNivel1.addElement(itemLevel2);
                     }
                 }
@@ -96,6 +99,7 @@ public class menuController {
             }else if(!g.get(i).isTipo() && g.get(i).getNivel()==1){
                 DefaultMenuItem itemLevel1=new DefaultMenuItem(g.get(i).getNombre());
                 itemLevel1.setIcon(g.get(i).getIcono());
+                itemLevel1.setOutcome(g.get(i).getUrl());
                 model.addElement(itemLevel1);
             }
             
