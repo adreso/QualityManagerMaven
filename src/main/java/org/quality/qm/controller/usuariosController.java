@@ -72,4 +72,23 @@ public class usuariosController {
         return lista;
     }
     
+    public Usuarios Login(){
+        List<Usuarios> login=null;
+        Usuarios usuario=null;
+        SqlSession session = new MyBatisUtil().getSession();
+        if(session!=null){
+            try{
+                login=session.selectList("usuarios.login");
+                if(!login.isEmpty()){
+                        usuario=login.get(0);
+                }
+            }finally{
+                session.close();
+            }
+        }else{
+            System.out.print("Error BD");
+        }
+        return usuario;
+    }
+    
 }
