@@ -2351,13 +2351,3 @@ table tr:hover .table-links {
 @media (min-width: 992px) and (max-width: 1199.98px) {
 }
 @media (min-width: 1200px) { }
-
-#principal{
-    width: 800px; 
-    margin: 0 auto;
-}
-#cuadro{
-    margin: 100px auto;
-    width: 40%;
-    text-align: center;
-}

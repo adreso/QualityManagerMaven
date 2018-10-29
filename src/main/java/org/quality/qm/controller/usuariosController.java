@@ -72,15 +72,19 @@ public class usuariosController {
         return lista;
     }
     
-    public Usuarios Login(){
+    public String login(){
         List<Usuarios> login=null;
-        Usuarios usuario=null;
+        //Usuarios usuario=null;
+        String redireccion=null;
         SqlSession session = new MyBatisUtil().getSession();
         if(session!=null){
             try{
-                login=session.selectList("usuarios.login");
+                login=session.selectList("usuarios.login",usuario);
                 if(!login.isEmpty()){
-                        usuario=login.get(0);
+                    FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("Usuario", login);
+                    redireccion="/view/index";
+                }else{
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Credenciales incorrectas", "Credenciales incorrectas"));
                 }
             }finally{
                 session.close();
@@ -88,7 +92,12 @@ public class usuariosController {
         }else{
             System.out.print("Error BD");
         }
-        return usuario;
+        return redireccion;
+    }
+    
+    public void cerrarSesion(){
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Sesión cerrada", "Credenciales incorrectas"));
     }
     
 }

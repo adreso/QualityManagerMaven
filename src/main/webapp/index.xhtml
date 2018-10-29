@@ -14,21 +14,24 @@
         <h:outputStylesheet name="css/components.css"/>
         
     </h:head>
-    <h:body id="principal">
+    <h:body>
+        
         
         <p:layoutUnit position="center" style="margin: 250px auto;width: 330px; ">
-            <h:form>
-                <p:messages autoUpdate="true"/>
+            <h:form id="usuario">
+                
+                <h4 style="text-align: center">INICIAR SESIÓN</h4>
                 <p:separator/>
                 <h:panelGrid columns="2">
                     <p:outputLabel for="txtUsuario" value="Usuario"/>
-                    <p:inputText id="txtUsuario" required="true"/>
+                    <p:inputText id="txtUsuario" value="#{usuariosController.usuario.username}" required="true"/>
                     <p:outputLabel for="txtPassword" value="Password"/>
-                    <p:inputText id="txtPassword" required="true"/>
+                    <p:password id="txtPassword" required="true" value="#{usuariosController.usuario.password}"/>
                     <p:column/>
-                    <p:commandButton icon="ui-icon-key" value="Iniciar sesión"/>
+                    <p:commandButton icon="ui-icon-key" value="ingresar" action="#{usuariosController.login()}"/>
                 </h:panelGrid>
                 <p:separator/>
+                <p:messages autoUpdate="true" closable="true"  showSummary="true"/>
             </h:form>
         </p:layoutUnit>
    <h:outputScript library="js" name="jquery.min.js" />

@@ -9,7 +9,7 @@
     <select id="getusuarios" resultType="org.quality.qm.model.Usuarios">
         select * from usuarios
     </select>
-    <select id="login" resultType="org.quiality.qm.model.Usuarios">
-        select * from usuarios where username=#{username} and password=#{password}
+    <select id="login" resultType="org.quality.qm.model.Usuarios">
+        select * from usuarios where username = #{username} and password = #{password}
     </select>
 </mapper>
