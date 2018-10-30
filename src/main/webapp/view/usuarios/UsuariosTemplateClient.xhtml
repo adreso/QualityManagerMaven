@@ -3,13 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <body>
+    <h:body>
         <ui:composition template="./../../WEB-INF/mainTemplate.xhtml">
 
             <ui:define name="titulo">Usuarios</ui:define>
-<ui:define name="subtitulo">
+            <ui:define name="subtitulo">
                 <h:form>
                     <p:menubar>
                         <p:menuitem value="Agregar" onclick="PF('dlg2').show();"/>
@@ -18,41 +19,62 @@
                 </h:form>
             </ui:define>
             <ui:define name="content">
-                <h:form id="usuario">
-            <p:dialog header="Agregar usuario" widgetVar="dlg2" >
-                <p:panelGrid columns="2">
-                        <h:outputText value="Username"/>
-                        <p:inputText value="#{usuariosController.usuario.username}" required="true"/>
-                        <h:outputText value="Password"/>
-                        <p:password id="clave1" match="clave2" feedback="true" validatorMessage="Las claves no coinciden" promptLabel="Ingrese una clave" weakLabel="Debil" goodLabel="Bueno" strongLabel="Fuerte" value="#{usuariosController.usuario.password}"/>
-                        <h:outputText value="Repetir Password"/>
-                        
-                        
-                        <p:password id="clave2" required="true"/>
-                        
-                        <h:outputText value="Grupo"/>
-                        <p:inputText value="#{usuariosController.usuario.grupo}"/>
-                        <h:outputText value="Estado"/>
-                        <p:inputText value="#{usuariosController.usuario.estado}"/>
-                        <h:outputText value="Tercero"/>
-                        <p:inputText value="#{usuariosController.usuario.idtercero}"/>
-                        <p:commandButton value="Guardar" update="usuario" actionListener="#{usuariosController.guardar()}"/>
-                    </p:panelGrid>
-            </p:dialog> 
+
+                <p:dialog header="Agregar usuario" widgetVar="dlg2" resizable="false" closeOnEscape="true" modal="true">
+                    <h:form>
+                        <p:panelGrid columns="2">
+                            <h:outputText value="Username"/>
+                            <p:inputText value="#{usuariosController.usuario.username}" required="true"/>
+                            <h:outputText value="Password"/>
+                            <p:password id="clave1" match="clave2" feedback="true" validatorMessage="Las claves no coinciden" promptLabel="Ingrese una clave" weakLabel="Debil" goodLabel="Bueno" strongLabel="Fuerte" value="#{usuariosController.usuario.password}"/>
+                            <h:outputText value="Repetir Password"/>
+                            <p:password id="clave2" required="true"/>
+                            <h:outputText value="Grupo"/>
+                            <p:inputText value="#{usuariosController.usuario.grupo}"/>
+                            <h:outputText value="Estado"/>
+                            <p:inputText value="#{usuariosController.usuario.estado}"/>
+                            <h:outputText value="Tercero"/>
+                            <p:inputText value="#{usuariosController.usuario.idtercero}"/>
+                            <p:commandButton value="Cancelar" icon="ui-icon-close" immediate="true" onclick="PF('dlg2').hide();"/>
+                            <p:commandButton value="Guardar" update=":usuario:tabla" icon="ui-icon-disk" actionListener="#{usuariosController.guardar()}" oncomplete="PF('dlg2').hide()"/>
+                            <p:growl showDetail="true" showSummary="true" autoUpdate="true"/>
+                        </p:panelGrid>
+                    </h:form>
+                </p:dialog> 
                 
-                <p:dataTable value="#{usuariosController.usuarios}" var="usu">
-                    <p:column headerText="ID">
-                        <h:outputText value="#{usu.idusuario}"/>
-                    </p:column>
-                    <p:column headerText="Username">
-                        <h:outputText value="#{usu.username}"/>
-                    </p:column>
-                </p:dataTable>
-                    <p:messages closable="true" showDetail="true" showSummary="true"/>
+                <h:form id="usuario">
+                    <p:dataTable id="tabla" value="#{usuariosController.usuarios}" var="usu" widgetVar="dataUsuarios" paginator="true" rows="15">
+                        <f:facet name="header">
+                            <p:outputPanel style="width:150px;margin-right:10px">
+                                <p:inputText id="globalFilter" onkeyup="PF('dataUsuarios').filter()"  placeholder="Buscar"/>
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="IDUsuario" filterBy="#{usu.idusuario}" sortBy="#{usu.idusuario}" footerText="IDUsuario">
+                            <h:outputText value="#{usu.idusuario}"/>
+                        </p:column>
+                        <p:column headerText="Username" filterBy="#{usu.username}" footerText="username" sortBy="#{usu.username}">
+                            <h:outputText value="#{usu.username}"/>
+                        </p:column>
+                        <p:column headerText="Grupo" filterBy="#{usu.grupo}">
+                            <h:outputText value="#{usu.grupo}"/> 
+                        </p:column>
+                        <p:column filterBy="#{usu.estado}" headerText="Estado" footerText="equals" filterMatchMode="equals">
+                            <f:facet name="filter">
+                                <p:selectOneButton onchange="PF('dataUsuarios').filter()">
+                                    <f:converter converterId="javax.faces.Boolean" />
+                                    <f:selectItem itemLabel="All" itemValue="" />
+                                    <f:selectItem itemLabel="Activos" itemValue="true" />
+                                    <f:selectItem itemLabel="Inactivos" itemValue="false" />
+                                </p:selectOneButton>
+                            </f:facet>
+                            <h:outputText value="#{usu.estado ? 'Activo': 'Inactivo'}" />
+                        </p:column>
+                    </p:dataTable>
                 </h:form>
             </ui:define>
 
         </ui:composition>
 
-    </body>
+    </h:body>
 </html>
