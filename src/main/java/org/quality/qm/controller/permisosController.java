@@ -9,7 +9,7 @@ import org.quality.qm.model.Usuarios;
 
 @Named
 @ViewScoped
-public class permisosController implements Serializable{
+public class permisosController{
     
     public void verificarSesion(){
         try{

@@ -24,7 +24,12 @@
                         <h:outputText value="Username"/>
                         <p:inputText value="#{usuariosController.usuario.username}" required="true"/>
                         <h:outputText value="Password"/>
-                        <p:inputText value="#{usuariosController.usuario.password}"/>
+                        <p:password id="clave1" match="clave2" feedback="true" validatorMessage="Las claves no coinciden" promptLabel="Ingrese una clave" weakLabel="Debil" goodLabel="Bueno" strongLabel="Fuerte" value="#{usuariosController.usuario.password}"/>
+                        <h:outputText value="Repetir Password"/>
+                        
+                        
+                        <p:password id="clave2" required="true"/>
+                        
                         <h:outputText value="Grupo"/>
                         <p:inputText value="#{usuariosController.usuario.grupo}"/>
                         <h:outputText value="Estado"/>
