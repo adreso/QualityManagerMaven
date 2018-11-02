@@ -7,10 +7,17 @@ package org.quality.qm.controller;
 
 import java.util.Date;
 import java.util.List;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+
+
 import org.apache.ibatis.session.SqlSession;
 import org.quality.qm.model.Usuarios;
 import org.quality.qm.model.mybatis.MyBatisUtil;
@@ -20,9 +27,11 @@ import org.quality.qm.model.mybatis.MyBatisUtil;
  * @author facturador
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
+
 public class usuariosController {
     private Usuarios usuario;
+    private List<Usuarios> lista;
     
     public usuariosController(){
         usuario=new Usuarios();
@@ -34,7 +43,11 @@ public class usuariosController {
     
     public void setUsuarios(Usuarios usuario){
         this.usuario=usuario;
-    }
+    }  
+
+    
+    
+    
     
     public String guardar() {
         Date today = new Date();
@@ -46,6 +59,7 @@ public class usuariosController {
             try {
                 session.insert("usuarios.insertarusuarios", usuario);
                 session.commit();
+                lista=null;
             } finally {
                 session.close();
             }
@@ -57,11 +71,13 @@ public class usuariosController {
     }
     
     public List<Usuarios> getusuarios(){
-        List<Usuarios> lista=null;
+        //List<Usuarios> lista=null;
         SqlSession session = new MyBatisUtil().getSession();
         if(session!=null){
             try{
-                lista=session.selectList("usuarios.getusuarios");
+                if(lista==null){
+                    lista=session.selectList("usuarios.getusuarios");
+                }
             }finally{
                 session.close();
             }
